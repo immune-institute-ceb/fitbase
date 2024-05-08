@@ -3,9 +3,18 @@ name: Bump Version
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Bump version: major, minor, patch'
-        required: true
+      bump:
+        type: choice
+        description: 'Create a major (breaking changes), minor (new features) or patch (fixes) release'
+        options:
+          - patch
+          - minor
+          - major
+        default: patch
+      pre-release:
+        description: 'Set as a pre-release'
+        required: false
+        type: boolean
 
 jobs:
   bump-version:
@@ -22,7 +31,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # required
           WITH_V: true  # optional, adds 'v' prefix to tag name
-          DEFAULT_BUMP: ${{ github.event.inputs.version }}  # set the bump type based on the input
+          DEFAULT_BUMP: ${{ github.event.inputs.bump }}  # set the bump type based on the input
           DRY_RUN: false  # optional, defaults to 'false'
           TAG_CONTEXT: repo  # optional, one of: repo, branch. 'branch' will create a new tag each push to a branch.
 
@@ -34,9 +43,5 @@ jobs:
         with:
           tag_name: ${{ steps.bump_version.outputs.tag }}
           release_name: Release ${{ steps.bump_version.outputs.tag }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
+          draft: ${{ github.event.inputs.pre-release }}
+          prerelease: ${{ github.event.inputs.pre-release }}
