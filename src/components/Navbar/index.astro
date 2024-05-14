@@ -6,7 +6,7 @@ import "./styles.css";
 <header id="cs-navigation">
   <div class="cs-container">
     <a href="/fitbase/" class="cs-logo" aria-label="back to home">
-      <Image src="/fitbase/logo.webp" alt="Fitbase Logo" aria-hidden="true" decoding="async" loading="lazy"  width={200} height={50} />
+      <Image src="/fitbase/logo.webp" alt="Fitbase Logo" aria-hidden="true" decoding="async" loading="lazy" width={200} height={50} />
     </a>
     <nav class="cs-nav" role="navigation">
       <button class="cs-toggle" aria-label="mobile menu toggle">
@@ -22,10 +22,10 @@ import "./styles.css";
             <a href="/fitbase/#hero" class="cs-li-link cs-active">Home</a>
           </li>
           <li class="cs-li">
-            <a href="/fitbase/#about" class="cs-li-link"> About </a>
+            <a href="/fitbase/#about" class="cs-li-link"> Sobre nosotros </a>
           </li>
           <li class="cs-li">
-            <a href="/fitbase/#process" class="cs-li-link"> Process </a>
+            <a href="/fitbase/#process" class="cs-li-link"> Nuestro proceso </a>
           </li>
           <li class="cs-li">
             <a href="/fitbase/#faq" class="cs-li-link"> FAQ </a>
@@ -37,44 +37,31 @@ import "./styles.css";
 </header>
 
 <script>
-  var CSbody = document.querySelector('body');
+  const CSbody = document.querySelector('body');
   const CSnavbarMenu = document.querySelector('#cs-navigation');
   const CShamburgerMenu = document.querySelector('#cs-navigation .cs-toggle');
 
-  CShamburgerMenu?.addEventListener('click', function () {
-    CShamburgerMenu.classList.toggle('cs-active');
+  const toggleMenu = () => {
+    CShamburgerMenu?.classList.toggle('cs-active');
     CSnavbarMenu?.classList.toggle('cs-active');
     CSbody?.classList.toggle('cs-open');
     ariaExpanded();
-  });
+  };
 
-  function ariaExpanded() {
+  const ariaExpanded = () => {
     const csUL = document.querySelector('#cs-expanded');
     const csExpanded = csUL?.getAttribute('aria-expanded');
+    csUL?.setAttribute('aria-expanded', csExpanded === 'false' ? 'true' : 'false');
+  };
 
-    if (csExpanded === 'false') {
-      csUL?.setAttribute('aria-expanded', 'true');
-    } else {
-      csUL?.setAttribute('aria-expanded', 'false');
-    }
-  }
+  CShamburgerMenu?.addEventListener('click', toggleMenu);
 
   const dropDowns = Array.from(document.querySelectorAll('#cs-navigation .cs-dropdown'));
-  for (const item of dropDowns) {
-    const onClick = () => {
-      item.classList.toggle('cs-active');
-    };
-    item.addEventListener('click', onClick);
-  }
+  dropDowns.forEach(item => item.addEventListener('click', () => item.classList.toggle('cs-active')));
 
   const csLiLinks = Array.from(document.querySelectorAll('#cs-navigation .cs-li-link'));
-  for (const item of csLiLinks) {
-    const onClick = () => {
-      csLiLinks.forEach((el) => {
-        el.classList.remove('cs-active');
-      });
-      item.classList.add('cs-active');
-    };
-    item.addEventListener('click', onClick);
-  }
+  csLiLinks.forEach(item => item.addEventListener('click', () => {
+    csLiLinks.forEach(el => el.classList.remove('cs-active'));
+    item.classList.add('cs-active');
+  }));
 </script>
