@@ -24,7 +24,6 @@
     }
     #process .cs-button-solid {
         font-size: 1rem;
-        /* 46px - 56px */
         line-height: clamp(2.875rem, 5.5vw, 3.5rem);
         text-decoration: none;
         font-weight: 700;
@@ -113,6 +112,7 @@
         width: 2rem;
         height: auto;
         display: block;
+        color: orange;
     }
 }
 
