@@ -14,5 +14,19 @@ const { title } = Astro.props;
   <link rel="shortcut icon" href="/fitbase/favicon.webp" type="image/x-icon" />
   <meta name="generator" content={Astro.generator} />
 
+  <!-- Page Metadata -->
+  <meta name="description" content="Fitbase es una api de fitness que te ayuda a seguir tu alimentación." />
+  <meta name="author" content="Fitbase" />
+  <meta name="keywords" content="fitness, workout, health, exercise, gym, training, tracking, motivation" />
+
+  <!-- Open Graph Metadata -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content="Fitbase es una api de fitness que te ayuda a seguir tu alimentación." />
+  <meta property="og:locale" content="Es_ES" />
+  <meta property="og:image" content="/fitbase/og-image.webp" />
+  <meta property="og:url" content="https://immune-institute-ceb.github.io/fitbase/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fitbase" />
+
   <title>{title}</title>
 </head>
